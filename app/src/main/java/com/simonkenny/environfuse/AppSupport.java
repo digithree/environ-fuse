@@ -22,7 +22,7 @@ public class AppSupport {
 
     // ---- Data
     private JSONObject weather;
-    private boolean weatherChanged = false;
+    private int weatherRequestNum = 0;
 
     public JSONObject getWeather() {
         return weather;
@@ -30,10 +30,10 @@ public class AppSupport {
 
     public void setWeather(JSONObject weather) {
         this.weather = weather;
-        weatherChanged = true;
+        weatherRequestNum++;
     }
 
-    public boolean isWeatherChanged() {
-        return weatherChanged;
+    public int getWeatherRequestNum() {
+        return weatherRequestNum;
     }
 }

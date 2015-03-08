@@ -42,14 +42,18 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     private View drawerView;
 
     // Timer
-    private final int POLL_WEATHER_WAIT = 60000;
+    private final int POLL_WEATHER_WAIT = 10;
     private boolean timerActive = true;
     private int secondCount = 0;
-    private boolean waitingForWeatherData = false;
+    private boolean firstTime = true;
+    private int weatherRequestNumCopy = 0;
 
     // Location
     private LocationManager locationManager = null;
     private Location currentBestLocation = null;
+
+    // Drawing
+    private DrawableView drawableView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,25 +113,20 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         // location
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this);
-    }
+        //updateWeather();
 
-    public void redrawCanvas() {
-        try {
-            ((TextView)findViewById(R.id.text_title)).setText(AppSupport.getInstance().getWeather().getString("name"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        drawableView = (DrawableView)findViewById(R.id.draw_view);
     }
 
     public void updateWeather() {
         Location location = getLastBestLocation();
         double lat = location.getLatitude();
         double lon = location.getLongitude();
-        ((TextView)findViewById(R.id.text_title)).setText(getString(R.string.main_fragment_text_wait_weather));
+        ((TextView)findViewById(R.id.text_title)).setText(
+                "("+location.getLatitude()+", "+location.getLongitude()+")");
         // get first weather data request
         new HttpInterface.HttpAsyncTaskGetWeather()
                 .execute("http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon);
-        waitingForWeatherData = true;
         Log.d("MainActivity","updateWeather: lat="+lat+", lon="+lon);
     }
 
@@ -142,16 +141,23 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             public void onFinish() {
                 secondCount++;
                 if( timerActive ) {
-                    if( currentBestLocation == null ) {
-                        Log.d("MainActivity","currentBestLocation null, updating weather with location request");
+                    if( firstTime ) {
                         updateWeather();
+                        firstTime = false;
                     }
-                    if( waitingForWeatherData ) {
-                        Log.d("MainActivity","Waiting for weather data: "+secondCount);
-                        if( AppSupport.getInstance().isWeatherChanged() ) {
-                            Log.d("MainActivity","Got weather data");
-                            redrawCanvas();
-                            waitingForWeatherData = false;
+                    if( weatherRequestNumCopy != AppSupport.getInstance().getWeatherRequestNum() ) {
+                        weatherRequestNumCopy = AppSupport.getInstance().getWeatherRequestNum();
+                        try {
+                            ((TextView)findViewById(R.id.text_title)).setText(
+                                    AppSupport.getInstance().getWeather().getString("name")
+                            );
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        // force view to redraw
+                        drawableView = (DrawableView)findViewById(R.id.draw_view);
+                        if( drawableView != null ) {
+                            drawableView.invalidate();
                         }
                     }
                     if( secondCount >= POLL_WEATHER_WAIT ) {
