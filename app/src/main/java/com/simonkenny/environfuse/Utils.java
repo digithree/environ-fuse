@@ -1,4 +1,4 @@
-package com.surfacetension.materialdesigntemplate;
+package com.simonkenny.environfuse;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;

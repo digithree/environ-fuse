@@ -1,4 +1,4 @@
-package com.surfacetension.materialdesigntemplate;
+package com.simonkenny.environfuse;
 
 /*
 * Copyright 2014 Google Inc.
@@ -24,6 +24,8 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
+
+import com.surfacetension.materialdesigntemplate.R;
 
 /**
  * A layout that draws something in the insets passed to
