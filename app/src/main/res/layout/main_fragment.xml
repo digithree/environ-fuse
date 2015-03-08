@@ -21,7 +21,18 @@
         android:paddingBottom="8dp"
         />
 
-    <!-- TODO : add more layout -->
+    <TextView
+        android:id="@+id/text_debug"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:singleLine="false"
+        android:textColor="@color/text_primary"
+        android:text="@string/main_fragment_debug_text"
+        android:paddingLeft="16dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="64dp"
+        />
 
 
 
