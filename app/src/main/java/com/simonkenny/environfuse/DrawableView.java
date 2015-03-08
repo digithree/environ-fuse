@@ -71,8 +71,17 @@ public class DrawableView extends View {
     private void createForeground() {
         int fgCol = Color.RED;
         gfxElements.clear();
+        if( weatherInfo.getDaylight() == 0.f || weatherInfo.getDaylight() == 1.f ) {
+            gfxElements.add(
+                    (GfxElement)new MoonGfxElement(fgCol, weatherInfo.getSunniness(), CANVAS_WIDTH, CANVAS_HEIGHT)
+            );
+        } else {
+            gfxElements.add(
+                    (GfxElement) new SunGfxElement(fgCol, weatherInfo.getSunniness(), CANVAS_WIDTH, CANVAS_HEIGHT)
+            );
+        }
         gfxElements.add(
-                (GfxElement)new SunGfxElement(fgCol, weatherInfo.getSunniness(), CANVAS_WIDTH, CANVAS_HEIGHT)
+                (GfxElement)new RainGfxElement(fgCol, weatherInfo.getRainfall(), CANVAS_WIDTH, CANVAS_HEIGHT)
         );
     }
 

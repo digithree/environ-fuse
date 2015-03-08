@@ -3,6 +3,7 @@ package com.simonkenny.environfuse;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.PointF;
 import android.util.Log;
 
 /**
@@ -73,5 +74,20 @@ public class Utils {
             retVal =  1.f;
         }
         return retVal;
+    }
+
+    public static PointF rotatePoint( PointF old, PointF center, float angle ) {
+        PointF trans = new PointF(old.x - center.x, old.y - center.y);
+        PointF ret = new PointF(
+                (trans.x * (float)Math.cos(angle)) - (trans.y * (float)Math.sin(angle)),
+                (trans.x * (float)Math.sin(angle)) + (trans.y * (float)Math.cos(angle))
+        );
+        ret.x += center.x;
+        ret.y += center.y;
+        return ret;
+    }
+
+    public static float logScale(float val) {
+        return (float)Math.log10((val*0.9)+0.1)+1.f;
     }
 }

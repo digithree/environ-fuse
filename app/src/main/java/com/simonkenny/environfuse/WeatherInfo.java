@@ -12,6 +12,11 @@ import java.util.Date;
  * Created by simonkenny on 08/03/15.
  */
 public class WeatherInfo {
+
+    // Constants
+    private static final float RAINFALL_3HR_MAX = 45; //mm
+    private static final float RAINFALL_3HR_MIN = 0; //mm
+
     // Values, normalised
     private final float daylight;
     private final float temp;
@@ -41,12 +46,13 @@ public class WeatherInfo {
     public static WeatherInfo makeFromJSON(JSONObject jsonObj) {
         // TODO : actually use weather info json
         if( jsonObj != null ) {
+            // daylight
             float _daylight = 0.f;
             try {
                 JSONObject _sys = jsonObj.getJSONObject("sys");
                 Date now = new Date();
                 _daylight = Utils.reverseMapRange(
-                        (float) (_sys.getLong("sunrise")*1000),
+                        (float) (_sys.getLong("sunrise")*1000),  //correct time number for Java Date() class unix time
                         (float) (_sys.getLong("sunset")*1000),
                         (float) now.getTime()
                 );
@@ -56,7 +62,28 @@ public class WeatherInfo {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            return new WeatherInfo(_daylight, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f);
+            // sunniness and cloudiness
+            float _sunniness = 0.f;
+            float _cloudiness = 0.f;
+            try {
+                JSONObject _clouds = jsonObj.getJSONObject("clouds");
+                _sunniness = 1.f - ((float)_clouds.getInt("all") / 100.f);
+                _cloudiness = ((float)_clouds.getInt("all") / 100.f);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            // rainfall
+            float _rainfall = 0.f;
+            try {
+                JSONObject _rainfall_3hrs = jsonObj.getJSONObject("rain");
+                _rainfall = Utils.reverseMapRange(RAINFALL_3HR_MIN, RAINFALL_3HR_MAX,
+                        _rainfall_3hrs.getInt("3h"));
+                // log scale
+                _rainfall = Utils.logScale(_rainfall );
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return new WeatherInfo(_daylight, 0.5f, 0.5f, 0.5f, _cloudiness, _sunniness, _rainfall, 0.5f, 0.5f, 0.5f);
         }
         return new WeatherInfo(0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f);
     }

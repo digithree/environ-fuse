@@ -1,6 +1,7 @@
 package com.simonkenny.environfuse;
 
 import android.graphics.Canvas;
+import android.graphics.PointF;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -14,8 +15,9 @@ public class SunGfxElement extends GfxElement {
     private final int NUM_POINTS_CIRCLE = 40;
     private final int NUM_TRIANGLES = 8;
     // modified
-    private final float CIRCLE_RADIUS = 0.4f; // TODO : change to 0.3f
-    private final float CIRCLE_TRI_DIST = 0.4f;
+    private final float CIRCLE_RADIUS = 0.3f; // TODO : change to 0.3f
+    private final float CIRCLE_TRI_DIST = 0.35f;
+    private final float CIRCLE_TRI_PART = 0.08f;
 
     SunGfxElement(int col, float scale, float width, float height) {
         super(col, scale, width, height);
@@ -41,6 +43,21 @@ public class SunGfxElement extends GfxElement {
             ));
         }
         // triangles
-        // TODO : do this
+        // make original points
+        float triDist = CIRCLE_TRI_DIST * width * scale;
+        float triPart = CIRCLE_TRI_PART * width * scale;
+        PointF p1 = new PointF(centerX, centerY - triDist - triPart);
+        PointF p2 = new PointF(centerX - triPart, centerY - triDist);
+        PointF p3 = new PointF(centerX + triPart, centerY - triDist);
+        PointF center = new PointF(centerX, centerY);
+        angle = (Math.PI * 2) / (double)NUM_TRIANGLES;
+        for( int i = 0 ; i < NUM_TRIANGLES ; i++ ) {
+            PointF p1_new = Utils.rotatePoint(p1,center,(float)(angle*(float)i));
+            PointF p2_new = Utils.rotatePoint(p2,center,(float)(angle*(float)i));
+            PointF p3_new = Utils.rotatePoint(p3,center,(float)(angle*(float)i));
+            lines.add(new Line(p1_new.x, p1_new.y, p2_new.x, p2_new.y) );
+            lines.add(new Line(p2_new.x, p2_new.y, p3_new.x, p3_new.y) );
+            lines.add(new Line(p3_new.x, p3_new.y, p1_new.x, p1_new.y) );
+        }
     }
 }
