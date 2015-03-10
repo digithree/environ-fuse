@@ -127,6 +127,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         // get first weather data request
         new HttpInterface.HttpAsyncTaskGetWeather()
                 .execute("http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon);
+               // .execute("http://api.openweathermap.org/data/2.5/weather?q=sydney,au");
         Log.d("MainActivity","updateWeather: lat="+lat+", lon="+lon);
     }
 
@@ -159,6 +160,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                         if( drawableView != null ) {
                             drawableView.invalidate();
                         }
+                        // update drawer weather info
+                        updateDrawerWeatherInfo();
                     }
                     if( secondCount >= POLL_WEATHER_WAIT ) {
                         updateWeather();
@@ -190,6 +193,32 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         super.onPause();
         Log.d("MainActivity","Destroy: cancelAlarm");
         cancelAlarm();
+    }
+
+    private void updateDrawerWeatherInfo() {
+        WeatherInfo weatherInfo = WeatherInfo.makeFromJSON(AppSupport.getInstance().getWeather());
+        ((TextView)drawerView.findViewById(R.id.text_sunrise))
+                .setText("Sunrise: "+weatherInfo.getSunriseAsString());
+        ((TextView)drawerView.findViewById(R.id.text_sunset))
+                .setText("Sunset: "+weatherInfo.getSunsetAsString());
+        ((TextView)drawerView.findViewById(R.id.text_temp))
+                .setText("Temp: "+weatherInfo.getTempAsString());
+        ((TextView)drawerView.findViewById(R.id.text_humidity))
+                .setText("Humidity: "+weatherInfo.getHumidityAsString());
+        ((TextView)drawerView.findViewById(R.id.text_windspeed))
+                .setText("Windspeed: "+weatherInfo.getWindspeedAsString());
+        ((TextView)drawerView.findViewById(R.id.text_cloudiness))
+                .setText("Cloudiness: "+weatherInfo.getCloudinessAsString());
+        ((TextView)drawerView.findViewById(R.id.text_sunnieness))
+                .setText("Sunniness: "+weatherInfo.getSunninessAsString());
+        ((TextView)drawerView.findViewById(R.id.text_rainfall))
+                .setText("Rainfall: "+weatherInfo.getRainfallAsString());
+        ((TextView)drawerView.findViewById(R.id.text_snowfall))
+                .setText("Snowfall: "+weatherInfo.getSnowfallAsString());
+        //((TextView)drawerView.findViewById(R.id.text_windgust))
+          //      .setText("Wind gust: "+weatherInfo.getWindGustAsString());
+        ((TextView)drawerView.findViewById(R.id.text_winddir))
+                .setText("Wind dir: "+weatherInfo.getWindDirectionAsString());
     }
 
     /* Called whenever we call invalidateOptionsMenu() */

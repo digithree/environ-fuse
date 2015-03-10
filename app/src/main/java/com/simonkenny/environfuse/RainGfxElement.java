@@ -9,7 +9,7 @@ public class RainGfxElement extends GfxElement {
     }
 
 
-    private final float DROP_SCALE = 0.35f;
+    private final float DROP_SCALE = 0.14f;
     private final float DROP_FORMULA_COEF = 7.f;
     private final int NUM_DROP_POINTS = 100;
 
@@ -19,7 +19,7 @@ public class RainGfxElement extends GfxElement {
         // create points
         // prep
         float centerX = width * 0.5f;
-        float centerY = height * Constants.MAIN_GXF_OBJECT_CENTER_Y;
+        float centerY = height * 0.82f;
         // drop
         for( int i = 0 ; i < NUM_DROP_POINTS ; i++ ) {
             double coef1 = (DROP_FORMULA_COEF / NUM_DROP_POINTS) * (double)i;
@@ -30,20 +30,6 @@ public class RainGfxElement extends GfxElement {
                     centerX + (float)((Math.sin(coef2)*sinToPower2(coef2/2.0))*dropScale),
                     centerY + (float)(-Math.cos(coef2)*dropScale)
             ));
-            /*
-            lines.add(new Line(
-                    centerX + (float)((Math.sin(coef1)*sinToPower7(0.5*coef1))*dropScale),
-                    centerY + (float)(-Math.cos(coef1)*dropScale),
-                    centerX + (float)((Math.sin(coef2)*sinToPower7(0.5*coef2))*dropScale),
-                    centerY + (float)(-Math.cos(coef2)*dropScale)
-            ));
-            lines.add(new Line(
-                    centerX,
-                    centerY,
-                    centerX + 100,
-                    centerY + 100
-            ));
-            */
         }
     }
 

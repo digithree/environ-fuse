@@ -38,7 +38,7 @@
                 android:textSize="24sp"
                 android:singleLine="true"
                 android:textColor="@color/white"
-                android:text="@string/drawer_fragment_default_text"
+                android:text="@string/drawer_fragment_title_text"
                 android:paddingLeft="16dp"
                 android:paddingBottom="8dp"
                 />
@@ -50,7 +50,7 @@
                 android:textSize="14sp"
                 android:singleLine="true"
                 android:textColor="@color/white"
-                android:text="@string/drawer_fragment_default_text"
+                android:text="@string/drawer_fragment_subtitle_text"
                 android:paddingLeft="16dp"
                 />
 
@@ -59,19 +59,147 @@
         <!-- BODY -->
 
         <TextView
-            android:id="@+id/text_body"
+            android:id="@+id/text_sunrise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:singleLine="true"
             android:textColor="@color/text_secondary"
-            android:text="@string/drawer_fragment_default_text"
+            android:text="Sunrise: [none]"
             android:paddingTop="8dp"
             android:paddingLeft="16dp"
             android:paddingBottom="8dp"
             />
 
-        <!-- TODO : add more layout -->
+        <TextView
+            android:id="@+id/text_sunset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:singleLine="true"
+            android:textColor="@color/text_secondary"
+            android:text="Sunset: [none]"
+            android:paddingTop="8dp"
+            android:paddingLeft="16dp"
+            android:paddingBottom="8dp"
+            />
+
+        <TextView
+            android:id="@+id/text_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:singleLine="true"
+            android:textColor="@color/text_secondary"
+            android:text="Temp: [none]"
+            android:paddingTop="8dp"
+            android:paddingLeft="16dp"
+            android:paddingBottom="8dp"
+            />
+
+        <TextView
+            android:id="@+id/text_humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:singleLine="true"
+            android:textColor="@color/text_secondary"
+            android:text="Humidity: [none]"
+            android:paddingTop="8dp"
+            android:paddingLeft="16dp"
+            android:paddingBottom="8dp"
+            />
+
+        <TextView
+            android:id="@+id/text_windspeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:singleLine="true"
+            android:textColor="@color/text_secondary"
+            android:text="Windspeed: [none]"
+            android:paddingTop="8dp"
+            android:paddingLeft="16dp"
+            android:paddingBottom="8dp"
+            />
+
+        <TextView
+            android:id="@+id/text_cloudiness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:singleLine="true"
+            android:textColor="@color/text_secondary"
+            android:text="Cloudiness: [none]"
+            android:paddingTop="8dp"
+            android:paddingLeft="16dp"
+            android:paddingBottom="8dp"
+            />
+
+        <TextView
+            android:id="@+id/text_sunnieness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:singleLine="true"
+            android:textColor="@color/text_secondary"
+            android:text="Sunniness: [none]"
+            android:paddingTop="8dp"
+            android:paddingLeft="16dp"
+            android:paddingBottom="8dp"
+            />
+
+        <TextView
+            android:id="@+id/text_rainfall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:singleLine="true"
+            android:textColor="@color/text_secondary"
+            android:text="Rainfall: [none]"
+            android:paddingTop="8dp"
+            android:paddingLeft="16dp"
+            android:paddingBottom="8dp"
+            />
+
+        <TextView
+            android:id="@+id/text_snowfall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:singleLine="true"
+            android:textColor="@color/text_secondary"
+            android:text="Snowfall: [none]"
+            android:paddingTop="8dp"
+            android:paddingLeft="16dp"
+            android:paddingBottom="8dp"
+            />
+
+        <!--TextView
+            android:id="@+id/text_windgust"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:singleLine="true"
+            android:textColor="@color/text_secondary"
+            android:text="Wind gust: [none]"
+            android:paddingTop="8dp"
+            android:paddingLeft="16dp"
+            android:paddingBottom="8dp"
+            /-->
+
+        <TextView
+            android:id="@+id/text_winddir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:singleLine="true"
+            android:textColor="@color/text_secondary"
+            android:text="Wind dir: [none]"
+            android:paddingTop="8dp"
+            android:paddingLeft="16dp"
+            android:paddingBottom="8dp"
+            />
 
 
 

@@ -15,9 +15,9 @@ public class SunGfxElement extends GfxElement {
     private final int NUM_POINTS_CIRCLE = 40;
     private final int NUM_TRIANGLES = 8;
     // modified
-    private final float CIRCLE_RADIUS = 0.3f; // TODO : change to 0.3f
-    private final float CIRCLE_TRI_DIST = 0.35f;
-    private final float CIRCLE_TRI_PART = 0.08f;
+    private final float CIRCLE_RADIUS = 0.13f; // TODO : change to 0.3f
+    private final float CIRCLE_TRI_DIST = CIRCLE_RADIUS * 1.4f;
+    private final float CIRCLE_TRI_PART = 0.05f;
 
     SunGfxElement(int col, float scale, float width, float height) {
         super(col, scale, width, height);
@@ -31,7 +31,7 @@ public class SunGfxElement extends GfxElement {
         // create points
         // prep
         float centerX = width * 0.5f;
-        float centerY = height * 0.5f;
+        float centerY = height * 0.45f;
         // circle
         double angle = (Math.PI * 2) / (double)NUM_POINTS_CIRCLE;
         for( int i = 0 ; i < NUM_POINTS_CIRCLE ; i++ ) {

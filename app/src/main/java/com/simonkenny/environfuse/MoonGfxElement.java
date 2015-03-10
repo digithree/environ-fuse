@@ -8,7 +8,7 @@ import android.graphics.PointF;
 public class MoonGfxElement extends GfxElement {
     private final int NUM_POINTS_CIRCLE = 40;
     // modified
-    private final float CIRCLE_RADIUS = 0.3f; // TODO : change to 0.3f
+    private final float CIRCLE_RADIUS = 0.2f; // TODO : change to 0.3f
     private final float CIRCLE_FLIP_POINT = 0.4f;
 
     MoonGfxElement(int col, float scale, float width, float height) {
@@ -18,12 +18,12 @@ public class MoonGfxElement extends GfxElement {
     @Override
     public void init(float width, float height) {
         // scale
-        float radius = CIRCLE_RADIUS * width;// * scale;
+        float radius = CIRCLE_RADIUS * width * scale;
         //CIRCLE_TRI_DIST *= scale;
         // create points
         // prep
         float centerX = width * 0.5f;
-        float centerY = height * 0.5f;
+        float centerY = height * 0.45f;
         float flipPointX = centerX - (radius*CIRCLE_FLIP_POINT);
         // circle
         double angle = (Math.PI * 2) / (double)NUM_POINTS_CIRCLE;

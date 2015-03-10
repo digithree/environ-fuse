@@ -41,6 +41,13 @@ public class DrawableView extends View {
             {0.9f, 0.1f, 128.f, 78.f, 242.f},
             {1.f, 0.f, 20.f, 9.f, 60.f}         // section size not used in final entry
     };
+    private float [][]tempCols = {
+            {0.f, 0.5f, 169.f, 237.f, 255.f},
+            {0.5f, 0.15f, 5.f, 43.f, 232.f},
+            {0.65f, 0.12f, 157.f, 243.f, 135.f},
+            {0.77f, 0.23f, 253.f, 154.f, 91.f},
+            {1.f, 0.f, 238.f, 36.f, 15.f}
+    };
 
     // Consts
     private int CANVAS_WIDTH = 200;
@@ -69,7 +76,7 @@ public class DrawableView extends View {
     }
 
     private void createForeground() {
-        int fgCol = Color.RED;
+        int fgCol = getColForNormVal(tempCols, weatherInfo.getTemp());
         gfxElements.clear();
         if( weatherInfo.getDaylight() == 0.f || weatherInfo.getDaylight() == 1.f ) {
             gfxElements.add(
@@ -82,6 +89,14 @@ public class DrawableView extends View {
         }
         gfxElements.add(
                 (GfxElement)new RainGfxElement(fgCol, weatherInfo.getRainfall(), CANVAS_WIDTH, CANVAS_HEIGHT)
+        );
+        gfxElements.add(
+                (GfxElement)new HumidityGfxElement(fgCol, weatherInfo.getHumidity(), CANVAS_WIDTH, CANVAS_HEIGHT)
+        );
+        Log.d("DrawableView","Winddir: "+weatherInfo.getWindDirection());
+        gfxElements.add(
+                (GfxElement)new WindSpeedAndDirGfxElement(fgCol, weatherInfo.getWindSpeed(), weatherInfo.getWindDirection(),
+                        CANVAS_WIDTH, CANVAS_HEIGHT)
         );
     }
 
