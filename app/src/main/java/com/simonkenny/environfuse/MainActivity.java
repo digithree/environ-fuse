@@ -42,7 +42,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     private View drawerView;
 
     // Timer
-    private final int POLL_WEATHER_WAIT = 10;
+    private final int POLL_WEATHER_WAIT = 600;
     private boolean timerActive = true;
     private int secondCount = 0;
     private boolean firstTime = true;
@@ -109,11 +109,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         GlobalSettings.getInstance().setSharedPreferences(sharedPreferences);
-
-        // location
-        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this);
-        //updateWeather();
 
         drawableView = (DrawableView)findViewById(R.id.draw_view);
     }
@@ -183,7 +178,10 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("MainActivity","onResume: startAlarm");
+        Log.d("MainActivity","startAlarm and add location updates");
+        // location
+        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this);
         secondCount = 0;
         startAlarm();
     }
@@ -191,12 +189,16 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     @Override
     public void onPause() {
         super.onPause();
-        Log.d("MainActivity","Destroy: cancelAlarm");
+        Log.d("MainActivity","cancelAlarm and remove location updates");
+        locationManager.removeUpdates(this);
         cancelAlarm();
     }
 
     private void updateDrawerWeatherInfo() {
         WeatherInfo weatherInfo = WeatherInfo.makeFromJSON(AppSupport.getInstance().getWeather());
+        //getLastUpdateAsString
+        ((TextView)drawerView.findViewById(R.id.text_user))
+                .setText("Last updated "+weatherInfo.getLastUpdateAsString());
         ((TextView)drawerView.findViewById(R.id.text_sunrise))
                 .setText("Sunrise: "+weatherInfo.getSunriseAsString());
         ((TextView)drawerView.findViewById(R.id.text_sunset))

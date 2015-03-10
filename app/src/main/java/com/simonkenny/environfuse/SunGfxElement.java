@@ -21,9 +21,9 @@ public class SunGfxElement extends GfxElement {
 
     SunGfxElement(int col, float scale, float width, float height) {
         super(col, scale, width, height);
+        init(width,height);
     }
 
-    @Override
     public void init(float width, float height) {
         // scale
         float radius = CIRCLE_RADIUS * width * scale;
@@ -34,14 +34,15 @@ public class SunGfxElement extends GfxElement {
         float centerY = height * 0.45f;
         // circle
         double angle = (Math.PI * 2) / (double)NUM_POINTS_CIRCLE;
+        List<PointF> pointsf = new ArrayList<>();
         for( int i = 0 ; i < NUM_POINTS_CIRCLE ; i++ ) {
-            lines.add(new Line(
+            pointsf.add(new PointF(
                     centerX + (radius * (float)Math.cos(angle*(double)i)),
-                    centerY + (radius * (float)Math.sin(angle*(double)i)),
-                    centerX + (radius * (float)Math.cos(angle*(double)(i+1))),
-                    centerY + (radius * (float)Math.sin(angle*(double)(i+1)))
+                    centerY + (radius * (float)Math.sin(angle*(double)i))
             ));
         }
+        createShapeFromPoints(pointsf);
+        pointsf.clear();
         // triangles
         // make original points
         float triDist = CIRCLE_TRI_DIST * width * scale;
@@ -55,9 +56,11 @@ public class SunGfxElement extends GfxElement {
             PointF p1_new = Utils.rotatePoint(p1,center,(float)(angle*(float)i));
             PointF p2_new = Utils.rotatePoint(p2,center,(float)(angle*(float)i));
             PointF p3_new = Utils.rotatePoint(p3,center,(float)(angle*(float)i));
-            lines.add(new Line(p1_new.x, p1_new.y, p2_new.x, p2_new.y) );
-            lines.add(new Line(p2_new.x, p2_new.y, p3_new.x, p3_new.y) );
-            lines.add(new Line(p3_new.x, p3_new.y, p1_new.x, p1_new.y) );
+            pointsf.add(new PointF(p1_new.x, p1_new.y));
+            pointsf.add(new PointF(p2_new.x, p2_new.y));
+            pointsf.add(new PointF(p3_new.x, p3_new.y));
+            createShapeFromPoints(pointsf);
+            pointsf.clear();
         }
     }
 }

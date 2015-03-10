@@ -3,6 +3,9 @@ package com.simonkenny.environfuse;
 import android.graphics.PointF;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by simonkenny on 09/03/15.
  */
@@ -16,11 +19,10 @@ public class WindSpeedAndDirGfxElement extends GfxElement {
     WindSpeedAndDirGfxElement(int col, float scale, float rot, float width, float height ) {
         super(col, scale, width, height);
         this.rot = rot;
-        customInit(width, height);
-        createPointsFromLines();
+        init(width,height);
     }
 
-    public void customInit(float width, float height) {
+    public void init(float width, float height) {
         // scale
         float halfLength = LINE_LENGTH * 0.5f * width * scale;
         //CIRCLE_TRI_DIST *= scale;
@@ -30,6 +32,7 @@ public class WindSpeedAndDirGfxElement extends GfxElement {
         float centerY = height * 0.2f;
         float xOffset = width * 0.3f;
         float yOffset = height * 0.6f;
+        List<Line> lines = new ArrayList<>();
         // arrow
         // make original points
         float arrowOffset = LINE_ARROW_OFFSET * width * scale;
@@ -64,5 +67,7 @@ public class WindSpeedAndDirGfxElement extends GfxElement {
         lines.add(new Line(linep1_new.x+xOffset, linep1_new.y+yOffset, linep2_new.x+xOffset, linep2_new.y+yOffset) );
         lines.add(new Line(linep1_new.x+xOffset, linep1_new.y+yOffset, arrowp1_new.x+xOffset, arrowp1_new.y+yOffset) );
         lines.add(new Line(linep1_new.x+xOffset, linep1_new.y+yOffset, arrowp2_new.x+xOffset, arrowp2_new.y+yOffset) );
+        // add lines
+        createPointsFromLines(lines);
     }
 }

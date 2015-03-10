@@ -2,6 +2,9 @@ package com.simonkenny.environfuse;
 
 import android.graphics.PointF;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by simonkenny on 08/03/15.
  */
@@ -13,9 +16,9 @@ public class MoonGfxElement extends GfxElement {
 
     MoonGfxElement(int col, float scale, float width, float height) {
         super(col, scale, width, height);
+        init(width,height);
     }
 
-    @Override
     public void init(float width, float height) {
         // scale
         float radius = CIRCLE_RADIUS * width * scale;
@@ -27,6 +30,7 @@ public class MoonGfxElement extends GfxElement {
         float flipPointX = centerX - (radius*CIRCLE_FLIP_POINT);
         // circle
         double angle = (Math.PI * 2) / (double)NUM_POINTS_CIRCLE;
+        List<PointF> pointsf = new ArrayList<>();
         for( int i = 0 ; i < NUM_POINTS_CIRCLE ; i++ ) {
             float p1x = centerX + (radius * (float) Math.cos(angle * (double) i));
             if( p1x < flipPointX ) {
@@ -36,13 +40,12 @@ public class MoonGfxElement extends GfxElement {
             if( p2x < flipPointX ) {
                 p2x = flipPointX + (flipPointX - p2x);
             }
-            lines.add(new Line(
+            pointsf.add(new PointF(
                     p1x,
-                    centerY + (radius * (float) Math.sin(angle * (double) i)),
-                    p2x,
-                    centerY + (radius * (float) Math.sin(angle * (double) (i + 1)))
+                    centerY + (radius * (float) Math.sin(angle * (double) i))
             ));
         }
+        createShapeFromPoints(pointsf);
     }
 }
 

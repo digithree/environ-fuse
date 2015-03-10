@@ -25,6 +25,8 @@ public class WeatherInfo {
     private static final float SNOW_FALL_MAX = 7.f;
     private static final float SNOW_FALL_MIN = 0.f;
 
+    // Stats
+    private final Date created;
     // Values, normalised
     private final float daylight;
     private final float temp;
@@ -76,6 +78,7 @@ public class WeatherInfo {
         this.snowfall_ = snowfall_;
         this.windGust_ = windGust_;
         this.windDirection_ = windDirection_;
+        created = new Date();
     }
 
     public static WeatherInfo makeFromJSON(JSONObject jsonObj) {
@@ -138,6 +141,7 @@ public class WeatherInfo {
                     _rainfall = Utils.logScale(_rainfall );
                 } catch (JSONException e) {
                     // do nothing
+                    _rainfall = 0.f;
                     Log.d("WeatherInfo","Can't get rain:1h");
                 }
             }
@@ -201,6 +205,7 @@ public class WeatherInfo {
                     _snowfall = Utils.logScale(_snowfall );
                 } catch (JSONException e) {
                     // do nothing
+                    _snowfall = 0.f;
                     Log.d("WeatherInfo","Can't get snow:1h");
                 }
             }
@@ -313,5 +318,10 @@ public class WeatherInfo {
 
     public String getWindDirectionAsString() {
         return String.format("%.0f deg", windDirection_);
+    }
+
+    public String getLastUpdateAsString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        return sdf.format(created);
     }
 }
