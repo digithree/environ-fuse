@@ -1,4 +1,4 @@
-package com.simonkenny.environfuse;
+package com.surfacetension.environfuse;
 
 /**
  * Created by simonkenny on 08/03/15.

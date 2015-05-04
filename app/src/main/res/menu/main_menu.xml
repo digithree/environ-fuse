@@ -7,11 +7,11 @@
     <!-- android:icon="@drawable/ic_action_settings" -->
 
     <item
-        android:id="@+id/action_settings"
-        android:title="Settings"
-
+        android:id="@+id/action_update"
+        android:title="Update Weather"
         android:orderInCategory="100"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
+        android:onClick="actionUpdate"
         />
 
 </menu>

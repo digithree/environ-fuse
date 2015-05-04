@@ -1,4 +1,4 @@
-package com.simonkenny.environfuse;
+package com.surfacetension.environfuse;
 
 import android.support.v7.widget.RecyclerView;
 
@@ -21,19 +21,9 @@ public class AppSupport {
     }
 
     // ---- Data
-    private JSONObject weather;
-    private int weatherRequestNum = 0;
+    private WeatherInfo weatherInfo = new WeatherInfo();
 
-    public JSONObject getWeather() {
-        return weather;
-    }
-
-    public void setWeather(JSONObject weather) {
-        this.weather = weather;
-        weatherRequestNum++;
-    }
-
-    public int getWeatherRequestNum() {
-        return weatherRequestNum;
+    public WeatherInfo getWeatherInfo() {
+        return weatherInfo;
     }
 }

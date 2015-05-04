@@ -1,4 +1,4 @@
-package com.simonkenny.environfuse;
+package com.surfacetension.environfuse;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -29,6 +31,10 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -113,17 +119,41 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         drawableView = (DrawableView)findViewById(R.id.draw_view);
     }
 
+    public void actionUpdate(MenuItem item) {
+        if( !firstTime ) {
+            updateWeather();
+            secondCount = 0;
+        }
+    }
+
     public void updateWeather() {
         Location location = getLastBestLocation();
+        // get lat, lon
         double lat = location.getLatitude();
         double lon = location.getLongitude();
         ((TextView)findViewById(R.id.text_title)).setText(
                 "("+location.getLatitude()+", "+location.getLongitude()+")");
+        // get location name
+        Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+        String locationName = "";
+        try {
+            List<Address> listAddresses = geocoder.getFromLocation(lat, lon, 1);
+            if(null!=listAddresses&&listAddresses.size()>0){
+                locationName = listAddresses.get(0).getLocality();
+                if( locationName == null ) {
+                    locationName = listAddresses.get(0).getSubAdminArea();
+                } else if( locationName.equals("null") ) {
+                    locationName = listAddresses.get(0).getSubAdminArea();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // get first weather data request
-        new HttpInterface.HttpAsyncTaskGetWeather()
-                .execute("http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon);
-               // .execute("http://api.openweathermap.org/data/2.5/weather?q=sydney,au");
-        Log.d("MainActivity","updateWeather: lat="+lat+", lon="+lon);
+        AppSupport.getInstance().getWeatherInfo().getFromWeatherAPI(lat, lon, locationName);
+        // feedback
+        Toast.makeText(getApplicationContext(),"Updated weather",Toast.LENGTH_SHORT).show();
+        Log.d("MainActivity","updateWeather: lat="+lat+", lon="+lon+", name="+locationName);
     }
 
     public void startAlarm() {
@@ -141,8 +171,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                         updateWeather();
                         firstTime = false;
                     }
-                    if( weatherRequestNumCopy != AppSupport.getInstance().getWeatherRequestNum() ) {
-                        weatherRequestNumCopy = AppSupport.getInstance().getWeatherRequestNum();
+                    if( AppSupport.getInstance().getWeatherInfo().getDataUpdated() ) {
+                        /*
                         try {
                             ((TextView)findViewById(R.id.text_title)).setText(
                                     AppSupport.getInstance().getWeather().getString("name")
@@ -150,6 +180,8 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        */
+                        Toast.makeText(getApplicationContext(),"Updated gfx",Toast.LENGTH_SHORT).show();
                         // force view to redraw
                         drawableView = (DrawableView)findViewById(R.id.draw_view);
                         if( drawableView != null ) {
@@ -195,8 +227,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     }
 
     private void updateDrawerWeatherInfo() {
-        WeatherInfo weatherInfo = WeatherInfo.makeFromJSON(AppSupport.getInstance().getWeather());
-        //getLastUpdateAsString
+        // get weather info object
+        WeatherInfo weatherInfo = AppSupport.getInstance().getWeatherInfo();
+        // TODO : NOT DRAWER BUT DOING IT HERE FOR THE MOMENT, CHANGE
+        ((TextView)findViewById(R.id.text_title)).setText(
+                weatherInfo.getLocationName()
+        );
         ((TextView)drawerView.findViewById(R.id.text_user))
                 .setText("Last updated "+weatherInfo.getLastUpdateAsString());
         ((TextView)drawerView.findViewById(R.id.text_sunrise))

@@ -1,4 +1,4 @@
-package com.simonkenny.environfuse;
+package com.surfacetension.environfuse;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -64,7 +64,7 @@ public class DrawableView extends View {
         Log.d("DrawableView", "Updating weather gfx from info");
         // set and translate weather
         // TODO : take this off the UI thread
-        weatherInfo = WeatherInfo.makeFromJSON(AppSupport.getInstance().getWeather());
+        weatherInfo = AppSupport.getInstance().getWeatherInfo();
         if( weatherInfo != null ) {
             createBackground();
             createForeground();

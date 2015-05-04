@@ -1,4 +1,4 @@
-package com.simonkenny.environfuse;
+package com.surfacetension.environfuse;
 
 import android.content.Context;
 import android.content.res.TypedArray;
