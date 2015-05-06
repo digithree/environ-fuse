@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/beta_tiled_bg"
+    >
+
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:id="@+id/text_explanation_title1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textSize="32sp"
+            android:singleLine="true"
+            android:text="Surface Tension Beta Studio"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="48dp"
+            android:background="#000000"
+            />
+
+        <TextView
+            android:id="@+id/text_explanation_content1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textAlignment="gravity"
+            android:gravity="left"
+            android:singleLine="false"
+            android:textSize="20sp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="This app is a Surface Tension Beta Studio app. That means it is still in development but we have released it into the wild as a public beta. It may not work correctly, it may crash, but by using it you will be helping us to discover problems and join us on the journey."
+            android:layout_marginTop="24dp"
+            android:background="#000000"
+            />
+
+        <TextView
+            android:id="@+id/text_explanation_title2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textSize="32sp"
+            android:singleLine="true"
+            android:text="EnvironFuse Beta"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="48dp"
+            android:background="#000000"
+            />
+
+        <TextView
+            android:id="@+id/text_explanation_content2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textAlignment="gravity"
+            android:gravity="left"
+            android:singleLine="false"
+            android:textSize="20sp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="This particular app uses weather data to create impressionistic, artistic interpretations. At the moment it just works visually but we aim to add sonic elements also. The app requires an internet connection to work."
+            android:layout_marginTop="24dp"
+            android:background="#000000"
+            />
+
+        <TextView
+            android:id="@+id/text_explanation_title3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textSize="32sp"
+            android:singleLine="true"
+            android:text="Feedback integration"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="48dp"
+            android:background="#000000"
+            />
+
+        <TextView
+            android:id="@+id/text_explanation_content3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textAlignment="gravity"
+            android:gravity="left"
+            android:singleLine="false"
+            android:textSize="20sp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="Beta Studio apps use a feedback system called Apptentive which helps you contact us with your questions and ideas, as well as allowing us to receive information on how the app is working for you. No personal information is gathered. You'll find the beta bottom on the bottom left of the main app screen."
+            android:layout_marginTop="24dp"
+            android:background="#000000"
+            />
+
+    </LinearLayout>
+</ScrollView>

@@ -1,5 +1,6 @@
 package com.surfacetension.environfuse;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -28,6 +29,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.apptentive.android.sdk.Apptentive;
+import com.apptentive.android.sdk.module.messagecenter.UnreadMessagesListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,6 +64,9 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
     // Drawing
     private DrawableView drawableView = null;
+
+    // Apptentive
+    private int unreadMessagesCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +124,20 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         GlobalSettings.getInstance().setSharedPreferences(sharedPreferences);
 
         drawableView = (DrawableView)findViewById(R.id.draw_view);
+
+        // set up apptentive new message notification
+        // TODO : fix this, it doesn't seem to work
+        Apptentive.setUnreadMessagesListener(
+                new UnreadMessagesListener() {
+                    public void onUnreadMessageCountChanged(final int unreadMessages) {
+                        if( unreadMessagesCount != unreadMessages ) {
+                            Toast.makeText(getApplicationContext(),"You have "+unreadMessages+" unread Beta Studio messages",Toast.LENGTH_SHORT).show();
+                            unreadMessagesCount = unreadMessages;
+                        }
+                    }
+                }
+        );
+
     }
 
     public void actionUpdate(MenuItem item) {
@@ -208,6 +229,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        Apptentive.onStart(this);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         Log.d("MainActivity","startAlarm and add location updates");
@@ -224,6 +251,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         Log.d("MainActivity","cancelAlarm and remove location updates");
         locationManager.removeUpdates(this);
         cancelAlarm();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Apptentive.onStop(this);
     }
 
     private void updateDrawerWeatherInfo() {
@@ -320,7 +353,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
             final Context mContext = this.getActivity();
 
-            // TODO : build view
+            ((com.gc.materialdesign.views.ButtonFloatSmall)rootView.findViewById(R.id.button_beta))
+                    .setOnClickListener(new View.OnClickListener(){
+                        public void onClick(View v) {
+                            Apptentive.showMessageCenter((Activity)mContext);
+                        }
+                    });
 
             return rootView;
         }

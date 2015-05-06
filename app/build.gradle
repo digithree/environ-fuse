@@ -8,8 +8,8 @@ android {
         applicationId "com.surfacetension.environfuse"
         minSdkVersion 21
         targetSdkVersion 21
-        versionCode 1
-        versionName "0.1.8"
+        versionCode 2
+        versionName "0.1.11"
     }
     buildTypes {
         release {
@@ -19,10 +19,15 @@ android {
     }
 }
 
+
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.+'
     compile 'com.android.support:recyclerview-v7:21.0.+'
     compile 'com.afollestad:material-dialogs:0.6.0'
     compile 'com.android.support:cardview-v7:21.0.+'
+    compile 'com.github.navasmdc:MaterialDesign:1.+@aar'
+    compile 'com.apptentive:apptentive-android:1.7.2@aar'
+    compile files('lib/library-2.4.0.jar')
 }
