@@ -1,11 +1,13 @@
-package com.surfacetension.environfuse;
+package com.surfacetension.environfuse.gfxIcons;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
-import android.util.Log;
+
+import com.surfacetension.environfuse.Constants;
+import com.surfacetension.environfuse.Line;
+import com.surfacetension.environfuse.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,7 @@ public class GfxElement {
         paintStroke.setStrokeCap(Paint.Cap.ROUND);
         paintStroke.setStrokeJoin(Paint.Join.BEVEL);
         paintStroke.setColor(col);
-        paintStroke.setStrokeWidth(Utils.mapRange(Constants.MIN_STROKE_WIDTH,Constants.MAX_STROKE_WIDTH,scale));
+        paintStroke.setStrokeWidth(Utils.mapRange(Constants.MIN_STROKE_WIDTH, Constants.MAX_STROKE_WIDTH, scale));
         paintFill = new Paint(Paint.ANTI_ALIAS_FLAG);
         paintFill.setStyle(Paint.Style.FILL_AND_STROKE);
         paintFill.setStrokeCap(Paint.Cap.ROUND);

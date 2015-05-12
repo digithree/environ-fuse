@@ -2,6 +2,8 @@ package com.surfacetension.environfuse;
 
 import android.support.v7.widget.RecyclerView;
 
+import com.surfacetension.environfuse.gfxParticles.ParticlesContainer;
+
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -25,5 +27,11 @@ public class AppSupport {
 
     public WeatherInfo getWeatherInfo() {
         return weatherInfo;
+    }
+
+    private ParticlesContainer particlesContainer = new ParticlesContainer();
+
+    public ParticlesContainer getParticlesContainer() {
+        return particlesContainer;
     }
 }

@@ -1,4 +1,4 @@
-package com.surfacetension.environfuse;
+package com.surfacetension.environfuse.gfxIcons;
 
 import android.graphics.PointF;
 
@@ -14,7 +14,7 @@ public class MoonGfxElement extends GfxElement {
     private final float CIRCLE_RADIUS = 0.2f; // TODO : change to 0.3f
     private final float CIRCLE_FLIP_POINT = 0.4f;
 
-    MoonGfxElement(int col, float scale, float width, float height) {
+    public MoonGfxElement(int col, float scale, float width, float height) {
         super(col, scale, width, height);
         init(width,height);
     }

@@ -1,7 +1,9 @@
-package com.surfacetension.environfuse;
+package com.surfacetension.environfuse.gfxIcons;
 
 import android.graphics.PointF;
-import android.util.Log;
+
+import com.surfacetension.environfuse.Line;
+import com.surfacetension.environfuse.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,7 @@ public class WindSpeedAndDirGfxElement extends GfxElement {
 
     private final float rot;
 
-    WindSpeedAndDirGfxElement(int col, float scale, float rot, float width, float height ) {
+    public WindSpeedAndDirGfxElement(int col, float scale, float rot, float width, float height) {
         super(col, scale, width, height);
         this.rot = rot;
         init(width,height);
@@ -44,7 +46,7 @@ public class WindSpeedAndDirGfxElement extends GfxElement {
         // get angle
         float angle = ((float)Math.PI * 2.f) * (rot/360.f);
         // rotate points
-        PointF linep1_new = Utils.rotatePoint(linep1,center,angle);
+        PointF linep1_new = Utils.rotatePoint(linep1, center, angle);
         PointF linep2_new = Utils.rotatePoint(linep2,center,angle);
         PointF arrowp1_new = Utils.rotatePoint(arrowp1,center,angle);
         PointF arrowp2_new = Utils.rotatePoint(arrowp2,center,angle);

@@ -1,10 +1,7 @@
 package com.surfacetension.environfuse;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.location.Address;
@@ -32,9 +29,8 @@ import android.widget.Toast;
 
 import com.apptentive.android.sdk.Apptentive;
 import com.apptentive.android.sdk.module.messagecenter.UnreadMessagesListener;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.surfacetension.environfuse.gfxIcons.DrawableIconsView;
+import com.surfacetension.environfuse.gfxParticles.DrawableParticlesView;
 
 import java.io.IOException;
 import java.util.List;
@@ -63,7 +59,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     private Location currentBestLocation = null;
 
     // Drawing
-    private DrawableView drawableView = null;
+    private DrawableParticlesView drawableParticlesView;
 
     // Apptentive
     private int unreadMessagesCount = 0;
@@ -123,7 +119,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         GlobalSettings.getInstance().setSharedPreferences(sharedPreferences);
 
-        drawableView = (DrawableView)findViewById(R.id.draw_view);
+        drawableParticlesView = (DrawableParticlesView)findViewById(R.id.draw_view);
 
         // set up apptentive new message notification
         // TODO : fix this, it doesn't seem to work
@@ -204,9 +200,9 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                         */
                         Toast.makeText(getApplicationContext(),"Updated gfx",Toast.LENGTH_SHORT).show();
                         // force view to redraw
-                        drawableView = (DrawableView)findViewById(R.id.draw_view);
-                        if( drawableView != null ) {
-                            drawableView.invalidate();
+                        drawableParticlesView = (DrawableParticlesView)findViewById(R.id.draw_view);
+                        if( drawableParticlesView != null ) {
+                            drawableParticlesView.invalidate();
                         }
                         // update drawer weather info
                         updateDrawerWeatherInfo();

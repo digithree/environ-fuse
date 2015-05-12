@@ -1,8 +1,8 @@
-package com.surfacetension.environfuse;
+package com.surfacetension.environfuse.gfxIcons;
 
-import android.graphics.Canvas;
 import android.graphics.PointF;
-import android.util.Log;
+
+import com.surfacetension.environfuse.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class SunGfxElement extends GfxElement {
     private final float CIRCLE_TRI_DIST = CIRCLE_RADIUS * 1.4f;
     private final float CIRCLE_TRI_PART = 0.05f;
 
-    SunGfxElement(int col, float scale, float width, float height) {
+    public SunGfxElement(int col, float scale, float width, float height) {
         super(col, scale, width, height);
         init(width,height);
     }
@@ -53,7 +53,7 @@ public class SunGfxElement extends GfxElement {
         PointF center = new PointF(centerX, centerY);
         angle = (Math.PI * 2) / (double)NUM_TRIANGLES;
         for( int i = 0 ; i < NUM_TRIANGLES ; i++ ) {
-            PointF p1_new = Utils.rotatePoint(p1,center,(float)(angle*(float)i));
+            PointF p1_new = Utils.rotatePoint(p1, center, (float) (angle * (float) i));
             PointF p2_new = Utils.rotatePoint(p2,center,(float)(angle*(float)i));
             PointF p3_new = Utils.rotatePoint(p3,center,(float)(angle*(float)i));
             pointsf.add(new PointF(p1_new.x, p1_new.y));

@@ -1,4 +1,4 @@
-package com.surfacetension.environfuse;
+package com.surfacetension.environfuse.gfxIcons;
 
 import android.graphics.PointF;
 
@@ -9,7 +9,7 @@ import java.util.List;
  * Created by simonkenny on 09/03/15.
  */
 public class HumidityGfxElement extends GfxElement {
-    HumidityGfxElement(int col, float scale, float width, float height) {
+    public HumidityGfxElement(int col, float scale, float width, float height) {
         super(col, scale, width, height);
         init(width,height);
     }

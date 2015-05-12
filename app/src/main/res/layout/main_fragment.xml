@@ -25,7 +25,7 @@
         android:paddingBottom="8dp"
         />
 
-    <com.surfacetension.environfuse.DrawableView
+    <com.surfacetension.environfuse.gfxParticles.DrawableParticlesView
         android:id="@+id/draw_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
